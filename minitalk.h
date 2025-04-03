@@ -18,10 +18,19 @@
 # include <unistd.h> // write
 # include <stdio.h> // printf
 # include <stdint.h>
+#include <signal.h>
 
-//get PID
-int	pid_print(void);
+extern int str_len;
 
+//initialized the binary string to '0'
+void	*ft_memset(void *ptr, int x, size_t n);
+int		ft_strlen(char *str);
 
 
 #endif
+
+
+// LIST OF THINGS TO CHANCE LATER
+
+	//PRINTF -->FT_PRINTF
+	//ATOI -->FT_ATOI
