@@ -11,28 +11,9 @@
 
 #include "minitalk.h"
 
-char  *char_to_binary(unsigned char c)
+void signal_handler(int signum)
 {
-    char num;
-    int char_value;
-    char *binary = malloc(9 * sizeof(char));
-	int i = 7;
-
-	if (!binary)
-	{
-        printf("malloc failed");
-        return NULL;
-    }
-    ft_memset(binary, '0', 8);
-    while (c != 0)
-    {
-        num = (c % 2) + '0';
-        binary[i] = num;
-        c = c / 2;
-        i--;
-    }
-    binary[8] = '\0';
-    return binary;
+	printf("Server confirmation recived\n");
 }
 
 int main(int argc, char *argv[])
@@ -41,12 +22,17 @@ int main(int argc, char *argv[])
 	int pid;  
 	char *binary;
 	int i;
+	struct sigaction csa;
 
 	if (argc != 3)
 	{
 		printf("Error: You have to pass 2 arguments (process ID and a string)\n");
 		return 1;
 	}
+	csa.sa_handler = signal_handler;
+	sigemptyset(&csa.sa_mask); // Not blocking any other signals
+	csa.sa_flags = 0; //Use siginfo_t to get sender's PID
+	sigaction(SIGUSR1, &csa, NULL);
 	s = argv[2];
 	pid = atoi(argv[1]);
 	i = 0;
@@ -55,29 +41,18 @@ int main(int argc, char *argv[])
 		binary = char_to_binary(s[i]);
 		i++;
 		while (*binary != '\0')
-		{	
+		{
 			if (*binary == '0')
 			{
-				printf("0\n");
 				kill(pid, SIGUSR2);
 				sleep(1);
 			}
 			else if (*binary == '1')
-			{
-				printf("1\n");	
+			{	
 				kill(pid, SIGUSR1);
 				sleep(1);
 			}
 			binary++;
 		}
 	}
-
-	/* kill(pid, SIGUSR1);
-	sleep(1);
-	kill(pid, SIGUSR2);
-	sleep(1); */
-	//como no he redefinido el manejador de las señales, la señal de sigterm, tiene el comportamiento por defecto, que es terminar el programa
-	/*kill(pid, SIGTERM);
-	sleep(1);*/
-
 }

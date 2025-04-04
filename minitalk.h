@@ -24,8 +24,6 @@ extern int str_len;
 
 //initialized the binary string to '0'
 void	*ft_memset(void *ptr, int x, size_t n);
-int		ft_strlen(char *str);
-
 
 #endif
 

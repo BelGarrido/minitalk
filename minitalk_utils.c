@@ -14,13 +14,23 @@ void	*ft_memset(void *ptr, int x, size_t n)
 	}
 	return (ptr);
 }
-
-int		ft_strlen(char *str)
+char  *char_to_binary(unsigned char c)
 {
-	int i;
+    char num;
+    int char_value;
+    char *binary = malloc(9 * sizeof(char));
+	int i = 7;
 
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return i;
+	if (!binary)
+        return NULL;
+    ft_memset(binary, '0', 8);
+    while (c != 0)
+    {
+        num = (c % 2) + '0';
+        binary[i] = num;
+        c = c / 2;
+        i--;
+    }
+    binary[8] = '\0';
+    return binary;
 }

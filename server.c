@@ -32,13 +32,14 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 	}
 	char_index++;
 
+	kill(info->si_pid, SIGUSR1);
+
 	if (char_index == 8)
 	{
 		write (1, &c, 1);
 		c = 0;
 		char_index = 0;
 	}
-	
 }
 
 int		main(void)
@@ -55,16 +56,11 @@ int		main(void)
 	sigaction(SIGUSR2, &sa, NULL);
 	//sigaction(SIGTERM, &sa, NULL);
 
-	// Handle the error in signals
-
 	//ft_printf("The process ID is %d\n", pid);
 	printf("Yey server it's working! It's process ID is %d\n", getpid());
-
 	//bucle de escucha
 	while (1)
-	{
 		pause();
-	}
 	write (1, "\n", 1);
 	return 0;
 }
