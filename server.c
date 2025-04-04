@@ -8,21 +8,37 @@
 
 #include "minitalk.h"
 
-/* void	bin_to_char(int signum, char* c)
-{
-
-} */
-
 // Trial function
 // kill(pid, SIGUSR2); signum es el valor de SIGUSR1 / 2;
-void	signal_handler(int signum)
+void	signal_handler(int signum, siginfo_t *info, void *context)
 {
-	if (signum == SIGUSR1)
-		printf("1\n");
+	static pid_t client_pid = 0;
+	static unsigned char c = 0;
+	static int char_index = 0;
+	//si en algun momento averiguo como se manda una señak de ackolegdment
+	if (client_pid == 0)
+        client_pid = info->si_pid;
 
+	if (signum == SIGUSR1)
+	{
+		c = c << 1 | 1;
+		//printf("1\n");
+	}
 	else if (signum == SIGUSR2)
-		printf("0\n");
+	{
+		c = c << 1;
+		//printf("0\n");
 		//sleep(100);
+	}
+	char_index++;
+
+	if (char_index == 8)
+	{
+		write (1, &c, 1);
+		c = 0;
+		char_index = 0;
+	}
+	
 }
 
 int		main(void)
@@ -30,18 +46,16 @@ int		main(void)
 	struct sigaction sa;
 
 	// Initialize the struct with 0s (optional but recommended for safety)
-	sa.sa_handler = signal_handler;
-	sigemptyset(&sa.sa_mask); // Not blocking any other signals
-	sa.sa_flags = 0;          // No additional flags
- 
+	sa.sa_sigaction = signal_handler;
 
+	sigemptyset(&sa.sa_mask); // Not blocking any other signals
+	sa.sa_flags = SA_SIGINFO; //Use siginfo_t to get sender's PID
 	// When receiving sigusr1 || sigusr2 signal_handler is called
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	//sigaction(SIGTERM, &sa, NULL);
 
 	// Handle the error in signals
-
 
 	//ft_printf("The process ID is %d\n", pid);
 	printf("Yey server it's working! It's process ID is %d\n", getpid());
@@ -51,6 +65,6 @@ int		main(void)
 	{
 		pause();
 	}
-
+	write (1, "\n", 1);
 	return 0;
 }
