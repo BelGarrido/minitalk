@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:19:06 by anagarri          #+#    #+#             */
-/*   Updated: 2025/04/01 17:24:57 by anagarri         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:56:22 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,13 @@
 # include <unistd.h> // write
 # include <stdio.h> // printf
 # include <stdint.h>
-#include <signal.h>
-
-extern int str_len;
+# include <signal.h>
 
 //initialized the binary string to '0'
 void	*ft_memset(void *ptr, int x, size_t n);
+char	*char_to_binary(unsigned char c);
 
 #endif
-
-
 // LIST OF THINGS TO CHANCE LATER
 
 	//PRINTF -->FT_PRINTF

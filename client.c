@@ -1,37 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/04 13:32:42 by anagarri@st       #+#    #+#             */
+/*   Updated: 2025/04/04 14:07:23 by anagarri@st      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 // client takes 2 arguments (server PID, the string to communicate)
 // must sent the string passed as argument to the server
-
-
 /*char_to_bin
  1 iterar sobre elstring
  2 char_to_bin devuelve binario almacenarlo en un int o en un cha
- 3 bucle iterando sobre el int para seleccionar cada valor y mandar una señal u otra.
+ 3 bucle iterando sobre el int para seleccionar cada valor y mandar
+ una señal u otra.
  */
-
 
 #include "minitalk.h"
 
-void signal_handler(int signum)
+void	signal_handler(int signum)
 {
 	printf("Server confirmation recived\n");
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	char *s;
-	int pid;  
-	char *binary;
-	int i;
-	struct sigaction csa;
+	char				*s;
+	int					pid;
+	char				*binary;
+	int					i;
+	struct sigaction	csa;
 
 	if (argc != 3)
 	{
-		printf("Error: You have to pass 2 arguments (process ID and a string)\n");
-		return 1;
+		printf("Error: 2 arguments needed (process ID and a string)\n");
+		return (1);
 	}
 	csa.sa_handler = signal_handler;
-	sigemptyset(&csa.sa_mask); // Not blocking any other signals
-	csa.sa_flags = 0; //Use siginfo_t to get sender's PID
+	sigemptyset(&csa.sa_mask);
+	csa.sa_flags = 0;
 	sigaction(SIGUSR1, &csa, NULL);
 	s = argv[2];
 	pid = atoi(argv[1]);
@@ -48,11 +58,12 @@ int main(int argc, char *argv[])
 				sleep(1);
 			}
 			else if (*binary == '1')
-			{	
+			{
 				kill(pid, SIGUSR1);
 				sleep(1);
 			}
 			binary++;
 		}
 	}
+	return (0);
 }
