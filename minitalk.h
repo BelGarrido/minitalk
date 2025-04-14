@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
+/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:19:06 by anagarri          #+#    #+#             */
-/*   Updated: 2025/04/05 12:20:42 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/04/14 12:56:25 by anagarri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ extern int str_len;
 
 //initialized the binary string to '0'
 void	*ft_memset(void *ptr, int x, size_t n);
-char	*char_to_binary(unsigned char c);
+int		ft_atoi(const char *s);
+//char	*char_to_binary(unsigned char c);
 
 #endif
 

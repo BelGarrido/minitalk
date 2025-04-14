@@ -7,6 +7,7 @@
 // you only can use SIGUSR1 and SIGUSR2
 
 #include "minitalk.h"
+#include "ft_printf.h"
 
 // Trial function
 // kill(pid, SIGUSR2); signum es el valor de SIGUSR1 / 2;
@@ -15,7 +16,8 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 	static pid_t client_pid = 0;
 	static unsigned char c = 0;
 	static int char_index = 0;
-	//si en algun momento averiguo como se manda una señak de ackolegdment
+	context = context;
+	//si en algun momento averiguo como se manda una señak de acknolegdment
 	if (client_pid == 0)
         client_pid = info->si_pid;
 

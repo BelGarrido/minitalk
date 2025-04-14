@@ -10,18 +10,34 @@
 
 
 #include "minitalk.h"
+#include "ft_printf.h"
 
 void signal_handler(int signum)
 {
-	printf("Server confirmation recived\n");
+	if (signum == SIGUSR1 || signum == SIGUSR1)
+		printf("Server confirmation recived\n");
+}
+
+void send_char (int pid, unsigned char c)
+{
+	int i = 7;
+	while (i >= 0)
+	{
+		if (c >> i & 1)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		usleep(50);
+		i--;
+	}
 }
 
 int main(int argc, char *argv[])
 {
 	char *s;
 	int pid;
-	char *binary;
-	char *binary_free;
+	//char *binary;
+	//char *binary_free;
 	int i;
 	struct sigaction csa;
 
@@ -35,11 +51,13 @@ int main(int argc, char *argv[])
 	csa.sa_flags = 0; //Use siginfo_t to get sender's PID
 	sigaction(SIGUSR1, &csa, NULL);
 	s = argv[2];
-	pid = atoi(argv[1]);
+	pid = ft_atoi(argv[1]);
 	i = 0;
+
 	while (s[i] != '\0')
 	{
-		binary = char_to_binary(s[i]);
+		send_char(pid, s[i]);
+		/*binary = char_to_binary(s[i]);
 		binary_free = binary;
 		i++;
 		while (*binary != '\0')
@@ -56,11 +74,8 @@ int main(int argc, char *argv[])
 			}
 			binary++;
 		}
-		free(binary_free);
+		free(binary_free); */
+		i++;
 	}
+	exit(0); /*no se si sirve para algo*/
 }
-
-/* void send_signal(pid_t pid, char *s)
-{
-
-} */
