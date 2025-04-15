@@ -23,7 +23,10 @@ OBJ_SERVER = $(SRC_SERVER:.c=.o)
 OBJ_CLIENT = $(SRC_CLIENT:.c=.o)
 OBJ_UTILS = $(SRC_UTILS:.c=.o)
 
-all: $(NAME_SERVER) $(NAME_CLIENT)
+all: $(PRINTF_LIB) $(NAME_SERVER) $(NAME_CLIENT)
+
+$(PRINTF_LIB):
+	make -C $(PRINTF_DIR)
 
 # Server build rule
 $(NAME_SERVER): $(OBJ_SERVER)
@@ -37,8 +40,7 @@ $(NAME_CLIENT): $(OBJ_CLIENT) $(OBJ_UTILS)
 	$(CC) $(CFLAGS) $(OBJ_CLIENT) $(OBJ_UTILS) $(PRINTF_INC) $(PRINTF_LIB) -o $(NAME_CLIENT)
 	@echo "$(NAME_CLIENT) created!"
 
-$(PRINTF_LIB):
-	make -C $(PRINTF_DIR)
+
 
 # Generic rule to compile .c to .o
 %.o: %.c
