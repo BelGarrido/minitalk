@@ -1,18 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minitalk_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/15 13:45:52 by anagarri          #+#    #+#             */
+/*   Updated: 2025/04/15 14:14:08 by anagarri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
-void	*ft_memset(void *ptr, int x, size_t n)
+void	send_char(int pid, unsigned char c)
 {
-	size_t	i;
-	char	*ptr2;
+	int	i;
 
-	i = 0;
-	ptr2 = (char *) ptr;
-	while (i < n)
+	i = 7;
+	while (i >= 0)
 	{
-		ptr2[i] = x;
-		i++;
+		if (c >> i & 1)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		usleep(600);
+		i--;
 	}
-	return (ptr);
 }
 
 int	ft_atoi(const char *s)

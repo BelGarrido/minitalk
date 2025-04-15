@@ -57,7 +57,7 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-/* int main()
+/*int main()
 {	
 	char *text = "mundo";
 	int number = 2025;
@@ -73,4 +73,4 @@ int	ft_printf(const char *format, ...)
 	//ft_printf("count3: %i\n", count3);
 	ft_printf("count4: %i\n", count4);
 	    //printf("%d characters were written", result);
-} */
+}*/
