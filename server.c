@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:40:40 by anagarri@st       #+#    #+#             */
-/*   Updated: 2025/04/15 14:15:52 by anagarri         ###   ########.fr       */
+/*   Updated: 2025/04/16 09:55:35 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,12 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 	if (char_index == 8)
 	{
 		if (c == '\0')
+		{
 			client_pid = 0;
-		write (1, &c, 1);
+			write (1,"\n", 1);
+		}
+		else
+			write (1, &c, 1); //no estoy segura de esto
 		c = 0;
 		char_index = 0;
 	}
