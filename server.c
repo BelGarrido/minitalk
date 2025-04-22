@@ -6,7 +6,7 @@
 /*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:40:40 by anagarri@st       #+#    #+#             */
-/*   Updated: 2025/04/16 09:55:35 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/04/22 13:29:10 by anagarri@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@ unsigned char	update_char_from_signal(unsigned char c, int signum)
 	else if (signum == SIGUSR2)
 		c = c << 1;
 	return (c);
+}
+
+void	process_char(int *char_index, unsigned char *c, pid_t *pid)
+{
+	if (*c == '\0')
+	{
+		*pid = 0;
+		write (1, "\n", 1);
+	}
+	else
+		write (1, c, 1);
+	*c = 0;
+	*char_index = 0;
 }
 
 void	signal_handler(int signum, siginfo_t *info, void *context)
@@ -39,17 +52,7 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 	c = update_char_from_signal(c, signum);
 	char_index++;
 	if (char_index == 8)
-	{
-		if (c == '\0')
-		{
-			client_pid = 0;
-			write (1,"\n", 1);
-		}
-		else
-			write (1, &c, 1); //no estoy segura de esto
-		c = 0;
-		char_index = 0;
-	}
+		process_char(&char_index, &c, &client_pid);
 	kill(info->si_pid, SIGUSR1);
 }
 
