@@ -40,7 +40,7 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 	static unsigned char	c = 0;
 	static int				char_index = 0;
 
-	context = context;
+	(void)context;
 	if (client_pid == 0)
 		client_pid = info->si_pid;
 	if (client_pid != info->si_pid)
