@@ -3,19 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
+/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:40:22 by anagarri@st       #+#    #+#             */
-/*   Updated: 2025/04/22 13:30:46 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/05/06 10:53:54 by anagarri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
+volatile sig_atomic_t	g_ack = 0;
+
+void	send_char(int pid, unsigned char c)
+{
+	int	i;
+
+	i = 7;
+	while (i >= 0)
+	{
+		g_ack = 0;
+		if (c >> i & 1)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		while (!g_ack)
+			pause();
+		i--;
+	}
+}
+
 void	signal_handler(int signum)
 {
 	if (signum == SIGUSR1)
+	{
+		g_ack = 1;
 		printf("Signal recived\n");
+	}
 }
 
 int	main(int argc, char *argv[])

@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anagarri@student.42malaga.com <anagarri    +#+  +:+       +#+        */
+/*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 13:45:52 by anagarri          #+#    #+#             */
-/*   Updated: 2025/04/16 09:28:23 by anagarri@st      ###   ########.fr       */
+/*   Updated: 2025/05/06 10:46:51 by anagarri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
-void	send_char(int pid, unsigned char c)
-{
-	int	i;
-
-	i = 7;
-	while (i >= 0)
-	{
-		if (c >> i & 1)
-			kill(pid, SIGUSR1);
-		else
-			kill(pid, SIGUSR2);
-		usleep(600);
-		i--;
-	}
-}
 
 int	ft_atoi(const char *s)
 {
