@@ -6,7 +6,7 @@
 /*   By: anagarri <anagarri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 13:45:52 by anagarri          #+#    #+#             */
-/*   Updated: 2025/05/06 10:46:51 by anagarri         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:00:05 by anagarri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,3 @@ int	ft_atoi(const char *s)
 	}
 	return (number * neg);
 }
-
-/* char  *char_to_binary(unsigned char c)
-{
-    char num;
-    int char_value;
-    char *binary = malloc(9 * sizeof(char));
-	int i = 7;
-
-	if (!binary)
-        return NULL;
-    ft_memset(binary, '0', 9);
-    while (c != 0)
-    {
-        num = (c % 2) + '0';
-        binary[i] = num;
-        c = c / 2;
-        i--;
-    }
-    binary[8] = '\0';
-    return binary;
-} */
