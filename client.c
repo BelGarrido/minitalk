@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-volatile sig_atomic_t	g_ack = 0;
+int	g_ack = 0;
 
 void	send_char(int pid, unsigned char c)
 {
